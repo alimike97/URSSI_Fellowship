@@ -4,18 +4,16 @@ This six-month roadmap translates the project proposal into trackable technical,
 
 ## Milestone overview
 
-| Phase | Tentative period | Primary focus & Key release or decision |
-| --- | --- | --- | --- |
+| Phase | Tentative period | Primary focus & key release or decision |
+| --- | --- | --- |
 | Month 1 | July 2026 | Research and project foundation |
 | Month 2 | August 2026 | Diagnostic architecture and first benchmark cases |
-| Month 3 | September 2026 | Core implementation and testing. Working diagnostics, reproducible benchmarks, and CI |
-| Month 4 | October 2026 | Refine implementation and publish initial documentations |
+| Month 3 | September 2026 | Core implementation and testing; working diagnostics, reproducible benchmarks, and CI |
+| Month 4 | October 2026 | Refine implementation and publish initial documentation |
 | Month 5 | November 2026 | Pre-release evaluation and outreach |
-| Month 6 | December 2026 | Stabilization and sustainability, Prototype release, archived artifacts, and final report |
+| Month 6 | December 2026 | Stabilization and sustainability; prototype release, archived artifacts, and final report |
 
 ## Month 1 - Foundation
-
-### Objectives
 
 - Establish the public repository and open-development process.
 - Develop a timeline that maps to intended deliverables.
@@ -23,8 +21,6 @@ This six-month roadmap translates the project proposal into trackable technical,
 - At least one initial benchmark is specified well enough to reproduce.
 
 ## Month 2 - Architecture and initial benchmarks
-
-### Objectives
 
 - Prepare the initial testbed uses computationally affordable one-dimensional fluid problems.
 - Create a failure category where each has a definition, observable signature, and motivating source or reproducible example.
@@ -35,7 +31,6 @@ This six-month roadmap translates the project proposal into trackable technical,
 
 ## Month 3 - Core implementation and testing
 
-### Objectives
 - Implement core diagnostics for the highest-priority failure categories.
 - Expand the benchmark suite into reproducible, parameterized cases.
 - Add unit, integration, and regression tests.
@@ -44,8 +39,6 @@ This six-month roadmap translates the project proposal into trackable technical,
 
 ## Month 4 - Refine implementation and publish initial documentations
 
-### Objectives
-
 - Countinue to work on implementation.
 - Stabilize the first end-to-end workflows.
 - Publish preliminary documentation and integration examples.
@@ -53,14 +46,11 @@ This six-month roadmap translates the project proposal into trackable technical,
 
 ## Month 5 - Pre-release evaluation and outreach
 
-### Objectives
 - Evaluate usefulness, integration effort, clarity, and failure-detection behavior.
 - Refine the taxonomy, benchmarks, and documentation based on feedback.
 - Gather feedback from users inside and outside fluid dynamics.
 
 ## Month 6 - Stabilization and sustainability
-
-### Objectives
 
 - Stabilize the diagnostic library and benchmark suite.
 - Complete documentation and educational material.
