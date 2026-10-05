@@ -16,3 +16,18 @@ Icon
 .Trashes
 .VolumeIcon.icns
 .com.apple.timemachine.donotpresent
+### Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.ruff_cache/
+.venv/
+dist/
+build/
+
+### simwatchdog outputs
+*_results/
+
+### data (FOM results are kept out of git)
+data/

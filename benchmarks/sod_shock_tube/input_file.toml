@@ -1,0 +1,82 @@
+# Sod shock tube - silent failure benchmark
+
+[case]
+name           = "sod_shock_tube"
+
+# FOM results folder from CompFlowLab (kept out of git), absolute or relative to where main.py is run
+fom_dir        = "data/sod_shock_tube/FOM_results"
+
+# how the FOM was saved: every save_interval iterations, conservative variables multiplied by the cell width
+save_interval        = 10
+cons_volume_weighted = true
+
+# snapshots to read
+start_iter     = 0
+step_iter      = 10
+end_iter       = 4990
+
+# must match the CompFlowLab input file
+dt             = 5e-5
+x_initial      = 0.0
+x_final        = 1.0
+gamma          = 1.4
+cons_var_names = ["Density", "Momentum", "Total Energy"]
+
+[surrogate]
+# opinf, pod_regression or cnn
+method         = "opinf"
+
+# the surrogate only sees the FOM up to this iteration, then rolls out to end_iter
+train_end_iter = 2000
+num_modes      = 10
+regularization = 1e-2
+
+# opinf only: terms of the model (c constant, A linear, H quadratic)
+operators      = "cAH"
+
+[detect]
+# physics: finite, positivity, conservation, total_variation
+# residual: do consecutive snapshots satisfy the Euler equations (built-in flux, no solver needed)
+# out-of-distribution: pod_projection, mahalanobis, lof (fitted on the training window with num_modes POD modes)
+# temporal: any of the above followed by _cusum, flags a slow drift of that score
+# innovation: mismatch with the observations (the only detector that uses data from outside the model)
+detectors      = ["finite", "positivity", "conservation", "total_variation", "residual",
+                  "pod_projection", "mahalanobis", "lof",
+                  "conservation_cusum", "residual_cusum", "mahalanobis_cusum", "innovation"]
+num_modes      = 10
+
+# raise thresholds so the surrogate output over the training window is not flagged:
+# threshold = calibration_factor * largest score in that window
+calibrate          = true
+calibration_factor = 1.5
+
+# optional: fix the threshold of a detector by hand
+# [detect.thresholds]
+# conservation = 1e-3
+
+[observe]
+# cells where the true state (the FOM for now) is observed: "all" takes every obs_step-th cell,
+# or give a list of cell indices
+obs_indices    = "all"
+obs_step       = 25
+
+# observation noise, relative to the size of each variable
+obs_std        = 1e-3
+
+[scoring]
+# true failure onset = first step where the error against the FOM exceeds the threshold
+# norm: l1, l2 or linf (relative)   variable: "worst" or one of cons_var_names
+error_norm      = "l1"
+error_variable  = "worst"
+error_threshold = 0.05
+
+[correct]
+# none       : only signal
+# projection : enforce positivity and conservation
+# memory     : closest snapshots of the library as background, ensemble Kalman update with the observations
+method         = "memory"
+num_neighbors  = 10
+
+# snapshots kept in the memory: "train" (training window only) or "all", every library_step-th snapshot
+library        = "all"
+library_step   = 5

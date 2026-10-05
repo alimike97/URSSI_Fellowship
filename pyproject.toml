@@ -1,0 +1,44 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "simwatchdog"
+version = "0.1.0"
+description = "Runtime detection and correction of silent failures in ML- and ROM-driven fluid simulations"
+readme = "README.md"
+authors = [
+    { name = "Ali Mohaghegh", email = "mohaghegh.ali76@gmail.com" }
+]
+requires-python = ">=3.11"
+dependencies = [
+    "numpy>=2.0",
+    "scipy>=1.13",
+    "scikit-learn>=1.5",
+]
+
+[project.optional-dependencies]
+# surrogate models and plotting used to produce and study failures
+testbed = [
+    "opinf",
+    "torch",
+    "compflowlab",
+    "matplotlib",
+]
+dev = [
+    "pytest",
+    "ruff",
+]
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/simwatchdog"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src"]
+
+[tool.ruff]
+line-length = 140
+
+[tool.ruff.lint]
+select = ["E", "F"]
